@@ -1,0 +1,27 @@
+Please note that if the answer to the problem is YES, then there can exist more than one solution (i.e., multiple sets of vertex-disjoint paths). 
+You are required to report only one solution. An example is given below:
+
+CONSTRAINTS:
+The MAXIMUM value of n is 20.
+Here, 1<=i,j<=n (i,j start from 1).
+
+
+INPUT:
+n = 6
+m = {(2,2),(2,4),(2,6),(3,1),(3,2),(3,4),(3,6),(4,2),(4,4),(4,6)}
+
+OUTPUT:
+(i) YES, a solution exists.
+
+(ii) A solution to this problem (a set of vertex-disjoint paths) is: 
+
+	PATH from (2,2): (2,2)->(1,2)
+	PATH from (2,4): (2,4)->(1,4)
+	PATH from (2,6): (2,6)
+	PATH from (3,1): (3,1)
+	PATH from (3,2): (3,2)->(3,3)->(2,3)->(1,3)
+	PATH from (3,4): (3,4)->(3,5)->(2,5)->(1,5)
+	PATH from (3,6): (3,6)
+	PATH from (4,2): (4,2)->(4,3)->(5,3)->(6,3)
+	PATH from (4,4): (4,4)->(5,4)->(6,4)
+	PATH from (4,6): (4,6)
