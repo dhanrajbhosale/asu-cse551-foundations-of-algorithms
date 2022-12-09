@@ -112,6 +112,12 @@ def main():
         graph[source][airports_start['LAX']+i]= float('inf')
         graph[airports_start['JFK'] + i][sink] = float('inf')
 
+    # draw edged for lay over
+    for air_name in airports_start:
+        for i in range(1, 24):
+            air_start = airports_start[air_name]
+            graph[air_start + i - 1][air_start + i] = float('inf')
+
     # draw edges for actual flight
     for d_air, a_air, d_time, a_time, capacity in flight_data:
         row = airports_start[d_air] + t_convert(d_time)
