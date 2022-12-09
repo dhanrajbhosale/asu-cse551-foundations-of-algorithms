@@ -1,6 +1,3 @@
-import collections
-
-
 def my_split(x):
     t = x.strip().split("\t")
     t[2] = int(t[2])
@@ -109,7 +106,7 @@ def main():
 
     # draw edges for dummy nodes
     for i in range(24):
-        graph[source][airports_start['LAX']+i]= float('inf')
+        graph[source][airports_start['LAX'] + i] = float('inf')
         graph[airports_start['JFK'] + i][sink] = float('inf')
 
     # draw edged for lay over
@@ -125,7 +122,7 @@ def main():
         graph[row][col] = capacity
 
     g = Graph(graph)
-    print("The maximum possible flow is:", g.FordFulkerson(source, sink))
+    print("The maximum possible flow from LAX to JFK is: ", g.FordFulkerson(source, sink))
 
 
 if __name__ == "__main__":
