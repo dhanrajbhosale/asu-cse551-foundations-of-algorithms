@@ -1,5 +1,6 @@
 import collections
 
+
 def my_split(x):
     t = x.strip().split("\t")
     t[2] = int(t[2])
@@ -96,31 +97,30 @@ class Graph:
 
 
 def t_convert(h):
-    t_array = [18,19,20,21,22,23,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, 18]
+    t_array = [18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
     return t_array[h]
 
 
 def main():
-    graph = [[0]*240 for i in range(240)]
+    graph = [[0]*242 for i in range(242)]
     airports_start = {'ORD': 0, 'ATL': 24, 'IAD': 48, 'SFO': 72, 'LAX': 96, 'BOS': 120, 'SEA': 144, 'DEN': 168, 'PHX': 192, 'JFK': 216}
+    source, sink = 240, 241
     flight_data = get_flight_data()
+
+    # draw edges for dummy nodes
+    for i in range(24):
+        graph[source][airports_start['LAX']+i]= float('inf')
+        graph[airports_start['JFK'] + i][sink] = float('inf')
+
+    # draw edges for actual flight
     for d_air, a_air, d_time, a_time, capacity in flight_data:
         row = airports_start[d_air] + t_convert(d_time)
         col = airports_start[a_air] + t_convert(a_time)
         graph[row][col] = capacity
 
-    t = 0
-    for i in range(23):
-        g = Graph(graph)
-        source = 96
-        sink = 239 + i
-        t += g.FordFulkerson(source, sink)
-    print("The maximum possible flow is:", t)
+    g = Graph(graph)
+    print("The maximum possible flow is:", g.FordFulkerson(source, sink))
 
 
 if __name__ == "__main__":
     main()
-
-
-
-
