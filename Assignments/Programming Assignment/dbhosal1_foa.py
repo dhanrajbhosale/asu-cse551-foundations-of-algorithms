@@ -1,4 +1,11 @@
-def my_split(x): return x.strip().split("\t")
+import collections
+
+def my_split(x):
+    t = x.strip().split("\t")
+    t[2] = int(t[2])
+    t[3] = int(t[3])
+    t[4] = int(t[4])
+    return t
 
 
 def get_flight_data():
@@ -85,21 +92,56 @@ class Graph:
                 self.graph[u][v] -= path_flow
                 self.graph[v][u] += path_flow
                 v = parent[v]
-
         return max_flow
 
 
-flight_data = get_flight_data()
-graph = [[0, 16, 13, 0, 0, 0],
-         [0, 0, 10, 12, 0, 0],
-         [0, 4, 0, 0, 14, 0],
-         [0, 0, 9, 0, 0, 20],
-         [0, 0, 0, 7, 0, 4],
-         [0, 0, 0, 0, 0, 0]]
-g = Graph(graph)
-source, sink = 0, 5
-print("The maximum possible flow is: %d " % g.FordFulkerson(source, sink))
+def main():
 
+    graph = [[0, 16, 13, 0, 0, 0],
+             [0, 0, 10, 12, 0, 0],
+             [0, 4, 0, 0, 14, 0],
+             [0, 0, 9, 0, 0, 20],
+             [0, 0, 0, 7, 0, 4],
+             [0, 0, 0, 0, 0, 0]]
+    g = Graph(graph)
+    source, sink = 0, 5
+    print("The maximum possible flow is: %d " % g.FordFulkerson(source, sink))
+
+
+def t_convert(h):
+    t_array = [18,19,20,21,22,23,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17, 18]
+    return t_array[h]
+
+
+def test():
+    graph = [[0]*240 for i in range(240)]
+    airports_start = {'ORD': 0, 'ATL': 24, 'IAD': 48, 'SFO': 72, 'LAX': 96, 'BOS': 120, 'SEA': 144, 'DEN': 168, 'PHX': 192, 'JFK': 216}
+    flight_data = get_flight_data()
+    for d_air, a_air, d_time, a_time, capacity in flight_data:
+        row = airports_start[d_air] + t_convert(d_time)
+        col = airports_start[a_air] + t_convert(a_time)
+        graph[row][col] = capacity
+
+    t = 0
+    for i in range(23):
+        g = Graph(graph)
+        source = 96
+        sink = 239 + i
+        t += g.FordFulkerson(source, sink)
+    print("The maximum possible flow is:", t)
+
+def test2():
+    flight_data = get_flight_data()
+    my_set = set()
+    for f in flight_data:
+        my_set.add(f[0])
+        my_set.add(f[1])
+    print(my_set)
+
+if __name__ == "__main__":
+    # main()
+    test()
+    # test2()
 
 
 
