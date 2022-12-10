@@ -117,9 +117,11 @@ def main():
 
     # draw edges for actual flight
     for d_air, a_air, d_time, a_time, capacity in flight_data:
+        if d_time < 6 <= a_time:
+            continue
         row = airports_start[d_air] + t_convert(d_time)
         col = airports_start[a_air] + t_convert(a_time)
-        graph[row][col] = capacity
+        graph[row][col] += capacity
 
     g = Graph(graph)
     print("The maximum possible flow from LAX to JFK is: ", g.FordFulkerson(source, sink))
